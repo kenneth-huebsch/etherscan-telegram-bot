@@ -12,7 +12,7 @@ def start_etherscanning():
     telegram_client.send_start_message()
     while(1):
         try:
-            updates = etherscan_client.check_for_updates_since(global_vars.TOKEN_ADDRESS, last_check)
+            updates = etherscan_client.check_for_updates_since(last_check)
             last_check = datetime.now()
             if len(updates) > 0:
                 telegram_client.send_updates_to_channel(updates)

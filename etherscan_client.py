@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime, timedelta
 import os
-from address_db_client import AddressDBClient
+from db_client import DBClient
 
 def get_transactions(token_address: str) -> str:
     url = "https://api.etherscan.io/api"
@@ -21,11 +21,12 @@ def get_transactions(token_address: str) -> str:
     
     return response.json()
 
-def check_for_updates_since(token_address: str, since: datetime) -> list[dict]:
+def check_for_updates_since(since: datetime) -> list[dict]:
     updates = []
 
-    address_client = AddressDBClient()
-    addresses = address_client.read()
+    db_client = DBClient()
+    addresses = db_client.read_addresses()
+    token_address = db_client.read_token_address()
 
     if len(addresses) == 0:
         raise Exception("Not tracking any addresses")
@@ -52,7 +53,8 @@ def check_for_updates_since(token_address: str, since: datetime) -> list[dict]:
             #if address_in_list['name'] != '':
             #    tx['from'] = address_in_list['name']
             updates.append(tx)
-
+    
+    db_client.update_last_checked(since.timestamp())
     return updates
 
 
