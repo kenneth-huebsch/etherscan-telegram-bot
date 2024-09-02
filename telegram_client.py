@@ -8,15 +8,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 bot = telebot.TeleBot(os.getenv('TELEGRAM_BOT_TOKEN'))
+db_client = DBClient()
 
-@bot.channel_post_handler(commands=['add'])
-def handle_add_command(message):
+@bot.channel_post_handler(commands=['add-address'])
+def handle_add_address_command(message):
     # Split the message text to get command and parameter
     parts = message.text.split(maxsplit=2)
-    response = ''
     if len(parts) == 3:
         if parts[2][:2] != "0x":
-            response = "Expected /add <name> <address>"
+            response = "Expected /add-address <name> <address>"
         else:
             data = {}
             data['name'] = parts[1]            
@@ -30,55 +30,69 @@ def handle_add_command(message):
                 response = format_addresses(all_addresses)
     else:
         # Inform the user that they need to provide a parameter
-        response = "Please provide a value to add. Usage: /add <name> <address>"
+        response = "Please provide a value to add. Usage: /add-address <name> <address>"
     
     bot.reply_to(message, response)
 
-@bot.channel_post_handler(commands=['token'])
-def handle_token_command(message):
-    db_client = DBClient()
-    address = db_client.read_token_address()
-    emoji = db_client.read_token_emoji()
-    reply = "Tracking: " + emoji +  " - " + address
+@bot.channel_post_handler(commands=['tokens'])
+def handle_tokens_command(message):
+    tokens = db_client.read_tokens()
+    reply = "Tracking:\n" + format_tokens(tokens)
     bot.reply_to(message, reply)
 
-@bot.channel_post_handler(commands=['update-token'])
-def handle_update_token_command(message):
+@bot.channel_post_handler(commands=['add-token'])
+def handle_add_token_command(message):
     # Split the message text to get command and parameter
     parts = message.text.split(maxsplit=2)
-    response = ''
     if len(parts) == 3:
-        if parts[1][:2] != "0x":
-            response = "Expected /update-token <address> <emoji>"
+        if parts[2][:2] != "0x":
+            response = "Expected /add-token <emoji> <address>"
         else:
             data = {}
-            data['address'] = parts[1]            
-            data['emoji'] = parts[2]
-            db_client = DBClient()
-            success = db_client.update_token(data)
+            data['emoji'] = parts[1]            
+            data['address'] = parts[2]            
+            success = db_client.add_token(data)
             if success == False:
-                response = "Unable to update token."
+                response = "Unable to add token."
             else:
-                address = db_client.read_token_address()
-                emoji = db_client.read_token_emoji()
-                response = "Tracking: " + emoji +  " - " + address
+                tokens = db_client.read_tokens()
+                response = "Tracking:\n" + format_tokens(tokens)
     else:
         # Inform the user that they need to provide a parameter
-        response = "Please provide a value to add. Usage: /add <name> <address>"
+        response = "Please provide a value to add. Usage: /add-token <name> <address>"
     
     bot.reply_to(message, response)
 
-@bot.channel_post_handler(commands=['remove'])
-def handle_remove_command(message):
+@bot.channel_post_handler(commands=['remove-token'])
+def handle_remove_token_command(message):
     # Split the message text to get command and parameter
     parts = message.text.split(maxsplit=1)
     response = ''
+    if len(parts) == 2:
+        if parts[1][:2] != "0x":
+            response = "Expected /remove-token <address>"
+        else:
+            success = db_client.remove_token(parts[1])
+            if success == False:
+                response = "Unable to remove token. Maybe there isn't any record with that address?"
+            else:
+                all_tokens = db_client.read_tokens()
+                response = format_tokens(all_tokens)
+    else:
+        # Inform the user that they need to provide a parameter
+        response = "Please provide a value to remove. Usage: /remove-token <address>"
+    
+    bot.reply_to(message, response)
 
+@bot.channel_post_handler(commands=['remove-address'])
+def handle_remove_address_command(message):
+    # Split the message text to get command and parameter
+    parts = message.text.split(maxsplit=1)
+    response = ''
     if len(parts) == 2:
         if parts[1][:2] == "0x":
-            response = "Expected /remove <name>"
+            response = "Expected /remove-address <name>"
         else:
-            db_client = DBClient()
             success = db_client.remove_address(parts[1])
             if success == False:
                 response = "Unable to remove address. Maybe there isn't any record with that name?"
@@ -87,19 +101,17 @@ def handle_remove_command(message):
                 response = format_addresses(all_addresses)
     else:
         # Inform the user that they need to provide a parameter
-        response = "Please provide a value to remove. Usage: /remove <name>"
+        response = "Please provide a value to remove. Usage: /remove-token <name>"
     
     bot.reply_to(message, response)
 
 @bot.channel_post_handler(commands=['addresses'])
 def handle_addresses_command(message):
-    db_client = DBClient()
     addresses = db_client.read_addresses()
     bot.reply_to(message, format_addresses(addresses))
 
 @bot.channel_post_handler(commands=['status'])
 def handle_status_command(message):
-    db_client = DBClient()
     last_checked = db_client.read_last_checked()
     message = "Etherscan last checked: " + datetime.fromtimestamp(last_checked).strftime('%Y-%m-%d %H:%M:%S')
     with open('./im-alive.gif', 'rb') as file:
@@ -109,15 +121,15 @@ def handle_status_command(message):
 def handle_help_command(message):
     reply =   "/status - Returns whether or not bot is alive\n" \
             + "/addresses - Returns a list of addresses currently being tracked\n" \
-            + "/add <name> <address> - Adds an address to the list of addresses being tracked\n" \
-            + "/remove <name> - Removes an address from the list of addresses being tracked\n" \
-            + "/token - Returns the token being tracked\n" \
-            + "/update-token <token-address> <emoji-unicode> - Updates the token being tracked\n" \
+            + "/add-address <name> <address> - Adds an address to the list of addresses being tracked\n" \
+            + "/remove-address <name> - Removes an address from the list of addresses being tracked\n" \
+            + "/tokens - Returns the tokens being tracked\n" \
+            + "/add-token <emoji> <token-address>  - Adds a token to track\n" \
+            + "/remove-token <address> - Removes a token from the list of tokens being tracked\n" \
             + "/help = Prints this info\n"
     bot.reply_to(message, reply)
 
 def send_start_message():
-    db_client = DBClient()
     addresses = db_client.read_addresses()
     message = '\U0001F44B - Etherscan Bot Up and running!\nTracking the following addresses:\n' \
             + format_addresses(addresses)
@@ -129,17 +141,23 @@ def start_bot():
 def format_addresses(addresses: list[dict]) -> str:
     ret_val = ""
     for address in addresses:
-        ret_val += address['name'] + ': ' + address['address'][:16] + '...\n'
+        ret_val += address['name'] + ': ' + address['address'] + '\n'
+    return ret_val
+
+def format_tokens(tokens: list[dict]) -> str:
+    ret_val = ""
+    for token in tokens:
+        ret_val += token['emoji'] + ' - ' + token['address'] + '\n'
     return ret_val
 
 def format_updates(updates: list[dict]) -> str:
     ret_val = ""
-    db_client = DBClient()
-    emoji = db_client.read_token_emoji()
     for tx in updates:
-        ret_val +=  '\U0001F911 - ' + tx['from'] + ' sent ' + emoji \
-                  + ' on ' + datetime.fromtimestamp(int(tx['timeStamp'])).strftime('%b-%d at %H:%M') + ' '
-        ret_val += '<a href="https://etherscan.io/tx/' + tx['hash'] + '">Etherscan Link</a>\n\n'
+        emoji = db_client.read_token_emoji(tx['token-address'])
+        ret_val +=  'SELL - ' + emoji + '\n' \
+                + 'from: ' + tx['from'] + '\n' \
+                + 'to: ' + tx['to']  + '\n' \
+                + '<a href="https://etherscan.io/tx/' + tx['hash'] + '">Etherscan Link</a>\n\n'
     return ret_val
 
 def send_message_to_channel(message: str):

@@ -1,0 +1,12 @@
+[Unit]
+Description=Etherscan Telegram Bot
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/etherscan-telegram-bot/
+ExecStart=/usr/bin/python3 /home/ubuntu/etherscan-telegram-bot/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

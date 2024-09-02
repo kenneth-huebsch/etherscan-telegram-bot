@@ -17,14 +17,15 @@ This bot alerts you via Telegram whenever any wallets you are interested in sell
 1. Copy .env.sample to .env and update the fields
 1. Launch the app `python main.py`
 
-## USage
-/status - Returns whether or not bot is alive
-/addresses - Returns a list of addresses currently being tracked
-/add <name> <address> - Adds an address to the list of addresses being tracked
-/remove <name> - Removes an address from the list of addresses being tracked
-/token - Returns the token being tracked\n" \
-/update-token <token-address> <emoji-unicode> - Updates the token being tracked
-/help = Prints this info
+## Usage
+**/status** - Returns whether or not bot is alive
+**/addresses** - Returns a list of addresses currently being tracked
+**/add-address <name> <address>** - Adds an address to the list of addresses being tracked
+**/remove-address <name>** - Removes an address from the list of addresses being tracked
+**/tokens** - Returns the tokens being tracked
+**/add-token <emoji> <token-address>**  - Adds a token to track
+**/remove-token <address>** - Removes a token from the list of tokens being tracked
+**/help** = Prints this info
 
 # Outstanding questions
 What are start block and end block?
@@ -32,3 +33,7 @@ Do you want me searching the from field?
 What info do you want in the message?
 What addresses do you want me to search?
 Can we do a test?
+
+# Todo
+Support multiple coins
+Display value/amount
