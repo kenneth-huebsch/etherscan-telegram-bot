@@ -3,7 +3,6 @@ import telegram_client
 import global_vars
 import time
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 import threading
 
 
@@ -26,7 +25,6 @@ def start_etherscanning():
 
 def main() -> None:
     print("Starting Etherscan thread...")
-    load_dotenv()
     thread = threading.Thread(target=start_etherscanning)
     thread.start()
     

@@ -4,7 +4,9 @@ import os
 import telebot
 import global_vars
 from db_client import DBClient
+from dotenv import load_dotenv
 
+load_dotenv()
 bot = telebot.TeleBot(os.getenv('TELEGRAM_BOT_TOKEN'))
 
 @bot.channel_post_handler(commands=['add'])

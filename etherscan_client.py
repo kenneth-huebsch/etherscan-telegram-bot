@@ -2,6 +2,9 @@ import requests
 from datetime import datetime, timedelta
 import os
 from db_client import DBClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_transactions(token_address: str) -> str:
     url = "https://api.etherscan.io/api"
