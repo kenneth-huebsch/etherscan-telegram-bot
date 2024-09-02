@@ -49,12 +49,11 @@ def check_for_updates_since(since: datetime) -> list[dict]:
                 break
 
             # see if tx address is in our list of addresses were monitoring
-            #address_in_list = next((address for address in addresses if address['address'].lower() == tx['from'].lower()), None)
-            #if address_in_list != None:
-            if True:
+            address_in_list = next((address for address in addresses if address['address'].lower() == tx['from'].lower()), None)
+            if address_in_list != None:
                 # if there is a name provided, replace address with name so its readable
-                #if address_in_list['name'] != '':
-                #    tx['from'] = address_in_list['name']
+                if address_in_list['name'] != '':
+                    tx['from'] = address_in_list['name']
                 tx['token-address'] = token['address']
                 updates.append(tx)
     
