@@ -9,13 +9,22 @@ This bot alerts you via Telegram whenever any wallets you are interested in sell
    chat ).
 1. Create an Etherscan API key [here](https://etherscan.io/myapikey).
 
-## Usage
+## Deploy
 1. Clone this repository
 1. Create a virtual env `python -m venv venv`
 1. Activate venv `venv\Scripts\activate`
 1. Install dependencies `pip install -r requirements.txt`
 1. Copy .env.sample to .env and update the fields
 1. Launch the app `python main.py`
+
+## USage
+/status - Returns whether or not bot is alive
+/addresses - Returns a list of addresses currently being tracked
+/add <name> <address> - Adds an address to the list of addresses being tracked
+/remove <name> - Removes an address from the list of addresses being tracked
+/token - Returns the token being tracked\n" \
+/update-token <token-address> <emoji-unicode> - Updates the token being tracked
+/help = Prints this info
 
 # Outstanding questions
 What are start block and end block?
