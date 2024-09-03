@@ -20,8 +20,8 @@ def get_transactions(token_address: str) -> str:
     response = requests.get(url, params=params)
 
     if response.status_code != 200:
-        raise Exception("Unexpected response from etherscan API. Details: " + response.json())
-    
+        raise Exception("Unexpected response from etherscan API. Status Code: " + response.status_code)
+        
     return response.json()
 
 def check_for_updates_since(since: datetime) -> list[dict]:

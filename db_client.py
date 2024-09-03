@@ -1,18 +1,22 @@
 import json
+import threading
 
 class DBClient:
     def __init__(self):
         self.filepath = "./db.json"
+        self.file_lock = threading.Lock()
 
     def read(self) -> dict:
-        with open(self.filepath, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        with self.file_lock:        
+            with open(self.filepath, 'r', encoding='utf-8') as file:
+                data = json.load(file)
         return data
     
     def write(self, data: dict) -> bool:
         try:
-            with open(self.filepath, 'w', encoding='utf-8') as file:
-                json.dump(data, file, indent=4)
+            with self.file_lock:
+                with open(self.filepath, 'w', encoding='utf-8') as file:
+                    json.dump(data, file, indent=4)
         except Exception as e:
             return False
         return True              

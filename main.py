@@ -17,9 +17,8 @@ def start_etherscanning():
                 telegram_client.send_updates_to_channel(updates)
 
         except Exception as e:
-            error_message = f"<strong>Error: </strong> {str(e)}\n Etherscan bot is shutting down."
+            error_message = f"<strong>Warning: Exception recieved from etherscan thread: </strong> {str(e)}. Continuing..."
             telegram_client.send_message_to_channel(error_message)
-            raise e
 
         time.sleep(global_vars.POLL_TIME_SECONDS)
 
