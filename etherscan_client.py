@@ -3,15 +3,18 @@ from datetime import datetime, timedelta
 import os
 from db_client import DBClient
 from dotenv import load_dotenv
+import time
+from datetime import datetime, timedelta
 
 load_dotenv()
 
-def get_transactions(token_address: str) -> str:
+# returns all transactions for a given wallet
+def get_transactions(wallet_address: str) -> str:
     url = "https://api.etherscan.io/api"
     params = {
         'module': 'account',
-        'action': 'txlist',
-        'address': token_address,
+        'action': 'tokentx',
+        'address': wallet_address,
         'startblock': 0,
         'endblock': 'latest',        
         'sort': 'desc',
@@ -21,10 +24,10 @@ def get_transactions(token_address: str) -> str:
 
     if response.status_code != 200:
         raise Exception("Unexpected response from etherscan API. Status Code: " + response.status_code)
-        
+    
     return response.json()
 
-def check_for_updates_since(since: datetime) -> list[dict]:
+def check_for_updates() -> list[dict]:
     updates = []
 
     db_client = DBClient()
@@ -36,34 +39,40 @@ def check_for_updates_since(since: datetime) -> list[dict]:
     
     if len(tokens) == 0:
         raise Exception("Not tracking any tokens")
-    for token in tokens:
-        transactions = get_transactions(token['address'])
+    
+    for address in addresses:
+        now = datetime.now()
+        transactions = get_transactions(address['address'])
 
         if len(transactions) == 0:
-            raise Exception("Etherscan API returned 0 transactions for: " + token['address'])
+            raise Exception("Etherscan API returned 0 transactions for: " + address['name'])
 
         # loop through all tansactions for token
         for tx in transactions.get('result', []):
-            # break once they are older then
-            if is_older_then(tx['timeStamp'], since):
+            five_min_ago = now - timedelta(minutes=5)
+            last_update = address.get("last_checked", five_min_ago.timestamp())
+            if is_older_then(tx['timeStamp'], last_update):
                 break
 
             # see if tx address is in our list of addresses were monitoring
-            address_in_list = next((address for address in addresses if address['address'].lower() == tx['from'].lower()), None)
-            if address_in_list != None:
-                # if there is a name provided, replace address with name so its readable
-                if address_in_list['name'] != '':
-                    tx['from'] = address_in_list['name']
-                tx['token-address'] = token['address']
+            token_in_list = next((token for token in tokens if token['address'].lower() == tx['contractAddress'].lower()), None)
+            if token_in_list != None:
+                tx['token-emoji'] = token_in_list['emoji']
                 updates.append(tx)
+            
+        db_client.update_last_checked(address['address'], now.timestamp())
+        
+        # sleep to prevent exceeding API limits
+        time.sleep(1)
     
-    db_client.update_last_checked(since.timestamp())
     return updates
 
 
-def is_older_then(timestamp: str, since: datetime) -> bool:
-    timestamp = datetime.fromtimestamp(int(timestamp))
-    if timestamp <= since:
+def is_older_then(now_timestamp: str, since_timestamp: str) -> bool:
+    now = datetime.fromtimestamp(int(now_timestamp))
+    since = datetime.fromtimestamp(int(since_timestamp))
+    if now <= since:
         return True
     return False
 
+print(check_for_updates())

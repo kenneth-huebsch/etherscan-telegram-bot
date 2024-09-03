@@ -48,11 +48,16 @@ class DBClient:
             
     def read_last_checked(self) -> str:
         data = self.read()
-        return data['last_checked']
+        addresses = data.get(addresses)
+        if len(addresses) > 0:
+            last_checked = addresses[0].get('last_checked')
+        return last_checked
 
-    def update_last_checked(self, timestamp: str) -> bool:
+    def update_last_checked(self, address: str, timestamp: str) -> bool:
         data = self.read()
-        data['last_checked'] = timestamp
+        address_in_list = next((a for a in data['addresses'] if a['address'].lower() == address.lower()), None)
+        if address_in_list != None:
+            address_in_list['last_checked'] = timestamp
         return self.write(data)
 
     def add_address(self, address: dict) -> bool:
