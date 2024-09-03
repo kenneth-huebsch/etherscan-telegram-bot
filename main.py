@@ -17,8 +17,6 @@ def start_etherscanning():
             error_message = f"<strong>Warning: Exception recieved from etherscan thread: </strong> {str(e)}. Continuing..."
             telegram_client.send_message_to_channel(error_message)
 
-        time.sleep(global_vars.POLL_TIME_SECONDS)
-
 def main() -> None:
     print("Starting Etherscan thread...")
     thread = threading.Thread(target=start_etherscanning)

@@ -2,106 +2,135 @@
     "addresses": [
         {
             "name": "Satoshi Stacker",
-            "address": "0x396D4A257d4b98F353C5c5B954B35F3fC52acb4F"
+            "address": "0x396D4A257d4b98F353C5c5B954B35F3fC52acb4F",
+            "last_checked": 1725399252.044551
         },
         {
             "name": "Kyle Doops",
-            "address": "0xe15B96372421dd96297A46f6EAb2a070f18E8Cd4"
+            "address": "0xe15B96372421dd96297A46f6EAb2a070f18E8Cd4",
+            "last_checked": 1725399253.545596
         },
         {
             "name": "Kyle Doops 2",
-            "address": "0x74482e411D92A343b32240b5C2bB35482add6EA4"
+            "address": "0x74482e411D92A343b32240b5C2bB35482add6EA4",
+            "last_checked": 1725399255.099511
         },
         {
             "name": "Ran",
-            "address": "0x21C7C64163A116a1a872EB2d085bf8eFa352b7cb"
+            "address": "0x21C7C64163A116a1a872EB2d085bf8eFa352b7cb",
+            "last_checked": 1725399256.42373
         },
         {
             "name": "Ori",
-            "address": "0xB15e925f281dc53D9b6DC2901618641c3B7d8269"
+            "address": "0xB15e925f281dc53D9b6DC2901618641c3B7d8269",
+            "last_checked": 1725399257.776374
         },
         {
             "name": "Sheldon the Sniper",
-            "address": "0x841321D15E7b497E0F99cE8284F6995c36Eb1448"
+            "address": "0x841321D15E7b497E0F99cE8284F6995c36Eb1448",
+            "last_checked": 1725399258.985188
         },
         {
             "name": "Sheldon the Sniper 2",
-            "address": "0x66886B3A3DC2b44cb69B18a6b5aF3A989290BDbF"
+            "address": "0x66886B3A3DC2b44cb69B18a6b5aF3A989290BDbF",
+            "last_checked": 1725399260.278762
         },
         {
             "name": "Miles Duetscher",
-            "address": "0xDeaa2217aB206EeF0ee72F79ac3691290f2928F4"
+            "address": "0xDeaa2217aB206EeF0ee72F79ac3691290f2928F4",
+            "last_checked": 1725399261.842705
         },
         {
             "name": "Fefe Demeny",
-            "address": "0x213a0ecE24424129C651e8db000A4d9F9E89D6E9"
+            "address": "0x213a0ecE24424129C651e8db000A4d9F9E89D6E9",
+            "last_checked": 1725399263.127362
         },
         {
             "name": "Cryptodaku",
-            "address": "0x4553eD5d8d3731E629f67BD86abd021175F31848"
+            "address": "0x4553eD5d8d3731E629f67BD86abd021175F31848",
+            "last_checked": 1725399264.350936
         },
         {
             "name": "Altcoin Sherpa",
-            "address": "0x01d233e3d2414beec15832f2e6819c22bc3f1af5"
+            "address": "0x01d233e3d2414beec15832f2e6819c22bc3f1af5",
+            "last_checked": 1725399266.768204
         },
         {
             "name": "Justin Wu",
-            "address": "0x8FC197172906cF30DAe5104B8B7DD2E05ec175f8"
+            "address": "0x8FC197172906cF30DAe5104B8B7DD2E05ec175f8",
+            "last_checked": 1725399267.989097
         },
         {
             "name": "Dusty BC",
-            "address": "0x20aaD08A105eF7f8bC4205b472931c55fda218EF"
+            "address": "0x20aaD08A105eF7f8bC4205b472931c55fda218EF",
+            "last_checked": 1725399269.328367
         },
         {
             "name": "Summit Kapoor",
-            "address": "0xd23A16AA49855440eAb3a39894A3e4f39f8a4Ce3"
+            "address": "0xd23A16AA49855440eAb3a39894A3e4f39f8a4Ce3",
+            "last_checked": 1725399270.55647
         },
         {
             "name": "Evan Luthra",
-            "address": "0x90598fAEcb13b32B33E0D2aD07E74eACE9AFd64F"
+            "address": "0x90598fAEcb13b32B33E0D2aD07E74eACE9AFd64F",
+            "last_checked": 1725399272.03649
         },
         {
             "name": "Christoph",
-            "address": "0xDCdb6ac097450497B8A2097D7bd72963573718D4"
+            "address": "0xDCdb6ac097450497B8A2097D7bd72963573718D4",
+            "last_checked": 1725399273.963138
         },
         {
             "name": "Crypto Rover",
-            "address": "0x017D21a65a6F3F73f9646D2693Bdf225c7e721A3"
+            "address": "0x017D21a65a6F3F73f9646D2693Bdf225c7e721A3",
+            "last_checked": 1725399275.424727
         },
         {
             "name": "EzMoney",
-            "address": "0x609905B9bAC39d703D6a5B800AA72e3E03b86DD3"
+            "address": "0x609905B9bAC39d703D6a5B800AA72e3E03b86DD3",
+            "last_checked": 1725399276.795006
         },
         {
             "name": "Route 2 Fi",
-            "address": "0xEAeee2C68DE272E4A36E92Aa1A3f818699a2484C"
+            "address": "0xEAeee2C68DE272E4A36E92Aa1A3f818699a2484C",
+            "last_checked": 1725399242.513663
         },
         {
             "name": "David",
-            "address": "0x8626bD6fa09D9088b29178F8442A2779827Ac6C6"
+            "address": "0x8626bD6fa09D9088b29178F8442A2779827Ac6C6",
+            "last_checked": 1725399244.014401
         },
         {
             "name": "Ben Cohen",
-            "address": "0x2387BB9c97D9e86aFae0Fc694f3012A7080D6D89"
+            "address": "0x2387BB9c97D9e86aFae0Fc694f3012A7080D6D89",
+            "last_checked": 1725399245.305964
         },
         {
             "name": "Jason",
-            "address": "0xDa86b9bCE91Fecd1ADf827fdD59809174831C700"
+            "address": "0xDa86b9bCE91Fecd1ADf827fdD59809174831C700",
+            "last_checked": 1725399246.599646
         },
         {
             "name": "Ben Cohen 2",
-            "address": "0x29C75a7BeB5ecaA4Ed11abCd7743e9858417CB55"
+            "address": "0x29C75a7BeB5ecaA4Ed11abCd7743e9858417CB55",
+            "last_checked": 1725399247.83966
         },
         {
             "name": "Joe Speiser",
-            "address": "0x9Fb24fF756ce7873F57a067A9F7A2367CD5A30ba"
+            "address": "0x9Fb24fF756ce7873F57a067A9F7A2367CD5A30ba",
+            "last_checked": 1725399249.036291
+        },
+        {
+            "name": "Eric",
+            "address": "0x42818d8EE97bff7155a682FD19EE664C35F5f162",
+            "last_checked": 1725399250.34448
         }
     ],
     "last_checked": 1725303758.134714,
     "tokens": [
         {
             "address": "0x44971ABF0251958492FeE97dA3e5C5adA88B9185",
-            "emoji": "\ud83c\udd71\ufe0f"
+            "emoji": "\ud83e\udd16"
         },
         {
             "emoji": "\ud83d\udc38",

@@ -153,7 +153,7 @@ def format_tokens(tokens: list[dict]) -> str:
 def format_updates(updates: list[dict]) -> str:
     ret_val = ""
     for tx in updates:
-        ret_val +=  'SELL - ' + tx['token-emoji'] + '\n' \
+        ret_val +=  'SELL - ' + tx['token-emoji'] + ' - ' + db_client.get_name_from_address(tx['from']) + '\n' \
                 + 'from: ' + tx['from'] + '\n' \
                 + 'to: ' + tx['to']  + '\n' \
                 + 'amount: ' + tx['value'][:-18] + '.' + tx['value'][-18:] + '\n' \
@@ -173,7 +173,8 @@ def send_updates_to_channel(updates: list[dict]):
     data = {
         'chat_id': global_vars.TELEGRAM_CHANNEL_ID,
         'text': format_updates(updates),
-        'parse_mode': 'HTML'
+        'parse_mode': 'HTML',
+        'disable_web_page_preview': 'true'
     }
     response = requests.post(global_vars.URL, data=data)
 

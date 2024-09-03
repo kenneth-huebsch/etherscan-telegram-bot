@@ -78,3 +78,11 @@ class DBClient:
     
     def read_addresses(self) -> list[dict]:
         return self.read()['addresses']
+    
+    def get_name_from_address(self, address: str) -> str:
+        name = ''
+        addresses = self.read_addresses()
+        address_in_list = next((a for a in addresses if a['address'].lower() == address.lower()), None)
+        if address_in_list != None:
+            name = address_in_list['name']
+        return name
