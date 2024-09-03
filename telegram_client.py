@@ -153,10 +153,10 @@ def format_tokens(tokens: list[dict]) -> str:
 def format_updates(updates: list[dict]) -> str:
     ret_val = ""
     for tx in updates:
-        emoji = db_client.read_token_emoji(tx['token-address'])
-        ret_val +=  'SELL - ' + emoji + '\n' \
+        ret_val +=  'SELL - ' + tx['token-emoji'] + '\n' \
                 + 'from: ' + tx['from'] + '\n' \
                 + 'to: ' + tx['to']  + '\n' \
+                + 'amount: ' + tx['value'][:-18] + '.' + tx['value'][-18:] + '\n' \
                 + '<a href="https://etherscan.io/tx/' + tx['hash'] + '">Etherscan Link</a>\n\n'
     return ret_val
 
