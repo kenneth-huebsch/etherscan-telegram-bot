@@ -37,7 +37,7 @@ class DBClient:
     def remove_token(self, address: str) -> bool:
         data = self.read()
         token_in_list = next((token for token in data.get('tokens', []) if token.get('address', '').lower() == address.lower()), None)
-        if token_in_list != None:
+        if token_in_list == None:
             return False
         data['tokens'].remove(token_in_list)
         return self.write(data)
@@ -72,7 +72,7 @@ class DBClient:
 
     def remove_address(self, name: str) -> bool:
         data = self.read()
-        address_in_list = next((a for a in data.get('addresses', []) if a.get('name', '') == name.lower()), None)
+        address_in_list = next((a for a in data.get('addresses', []) if a.get('name', '').lower() == name.lower()), None)
         if address_in_list == None:
             return False
         data['addresses'].remove(address_in_list)
