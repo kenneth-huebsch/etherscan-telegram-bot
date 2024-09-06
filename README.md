@@ -35,5 +35,5 @@ What addresses do you want me to search?
 Can we do a test?
 
 # Todo
-Support multiple coins
-Display value/amount
+Exclude db from being tracked
+get rid of global vars

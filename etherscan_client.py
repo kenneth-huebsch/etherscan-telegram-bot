@@ -49,6 +49,8 @@ def check_for_updates() -> list[dict]:
 
         # loop through all tansactions for token
         for tx in transactions.get('result', []):
+            if tx['from'] != address['address']:
+                raise Exception(f"Received transaction with from Etherscan API with address {tx['from']} while querying for address {address['address']}")
             five_min_ago = now - timedelta(minutes=5)
             last_update = address.get("last_checked", five_min_ago.timestamp())
             if is_older_then(tx['timeStamp'], last_update):

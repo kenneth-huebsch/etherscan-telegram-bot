@@ -1,8 +1,5 @@
 import etherscan_client
 import telegram_client
-import global_vars
-import time
-from datetime import datetime, timedelta
 import threading
 
 
@@ -14,7 +11,7 @@ def start_etherscanning():
             if len(updates) > 0:
                 telegram_client.send_updates_to_channel(updates)
         except Exception as e:
-            error_message = f"<strong>Warning: Exception recieved from etherscan thread: </strong> {str(e)}. Continuing..."
+            error_message = f"<strong>Warning: Exception recieved from etherscan thread: </strong>\n {str(e)}\n Continuing..."
             telegram_client.send_message_to_channel(error_message)
 
 def main() -> None:
