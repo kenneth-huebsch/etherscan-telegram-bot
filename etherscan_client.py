@@ -51,7 +51,7 @@ def check_for_updates() -> list[dict]:
                 break
 
             # see if tx address is in our list of addresses were monitoring
-            if tx.get('from', '') == address.get('address', ''):
+            if tx.get('from', '').lower() == address.get('address', '').lower():
                 token_in_list = next((token for token in tokens if token['address'].lower() == tx['contractAddress'].lower()), None)
                 if token_in_list != None:
                     tx['token-emoji'] = token_in_list['emoji']

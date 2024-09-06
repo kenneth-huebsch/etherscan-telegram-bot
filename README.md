@@ -30,10 +30,12 @@ This bot alerts you via Telegram whenever any wallets you are interested in sell
 # Outstanding questions
 What are start block and end block?
 Do you want me searching the from field?
+
 What info do you want in the message?
 What addresses do you want me to search?
 Can we do a test?
 
 # Todo
-Exclude db from being tracked
-get rid of global vars
+Can I get pepecoin v2 name instead of address
+Value of transaction
+wallet balance
