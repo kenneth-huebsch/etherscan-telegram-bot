@@ -37,5 +37,4 @@ Can we do a test?
 
 # Todo
 Can I get pepecoin v2 name instead of address
-Value of transaction
 wallet balance

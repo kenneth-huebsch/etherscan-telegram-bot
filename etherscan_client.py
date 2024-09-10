@@ -4,7 +4,6 @@ import os
 from db_client import DBClient
 from dotenv import load_dotenv
 import time
-from datetime import datetime, timedelta
 
 load_dotenv()
 

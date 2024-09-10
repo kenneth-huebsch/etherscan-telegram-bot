@@ -4,6 +4,7 @@ import os
 import telebot
 from db_client import DBClient
 from dotenv import load_dotenv
+import coin_gecko_client
 
 load_dotenv()
 BOT = telebot.TeleBot(os.getenv('TELEGRAM_BOT_TOKEN'))
@@ -146,10 +147,14 @@ def format_tokens(tokens: list[dict]) -> str:
 def format_updates(updates: list[dict]) -> str:
     ret_val = ""
     for tx in updates:
+        token_decimal = -1 * int(tx.get('tokenDecimal', '18'))
+        amount = float(tx['value'][:token_decimal] + '.' + tx['value'][token_decimal:])
+        cash_value = coin_gecko_client.get_total_cost(tx['contractAddress'], amount)
         ret_val +=  'SELL - ' + tx['token-emoji'] + ' - ' + db_client.get_name_from_address(tx['from']) + '\n' \
                 + 'from: ' + tx['from'] + '\n' \
                 + 'to: ' + tx['to']  + '\n' \
-                + 'amount: ' + tx['value'][:-18] + '.' + tx['value'][-18:] + '\n' \
+                + 'amount: ' + str(amount) + '\n' \
+                + 'value: $' + cash_value + '\n' \
                 + '<a href="https://etherscan.io/tx/' + tx['hash'] + '">Etherscan Link</a>\n\n'
     return ret_val
 
