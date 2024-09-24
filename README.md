@@ -36,5 +36,6 @@ What addresses do you want me to search?
 Can we do a test?
 
 # Todo
+double address and token adds
 Can I get pepecoin v2 name instead of address
 wallet balance

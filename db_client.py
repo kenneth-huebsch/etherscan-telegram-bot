@@ -68,6 +68,7 @@ class DBClient:
         if address_in_list != None:
             return False
         data.get('addresses', []).append(address)
+        
         return self.write(data)
 
     def remove_address(self, name: str) -> bool:
